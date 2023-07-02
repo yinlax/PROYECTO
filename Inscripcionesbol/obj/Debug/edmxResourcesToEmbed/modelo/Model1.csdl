@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InscripcionesBoliviaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TCurso">
+    <Key>
+      <PropertyRef Name="Id_Curso" />
+    </Key>
+    <Property Name="Id_Curso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Capacidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Año" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Paralelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Id_Docente" Type="Int32" />
+    <NavigationProperty Name="TDocente" Relationship="Self.FK_TCursos_TDocente" FromRole="TCurso" ToRole="TDocente" />
+    <NavigationProperty Name="TInscripciones" Relationship="Self.FK_TInscripciones_TCurso" FromRole="TCurso" ToRole="TInscripciones" />
+  </EntityType>
+  <EntityType Name="TDocente">
+    <Key>
+      <PropertyRef Name="Id_Docente" />
+    </Key>
+    <Property Name="Id_Docente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TCurso" Relationship="Self.FK_TCursos_TDocente" FromRole="TDocente" ToRole="TCurso" />
+  </EntityType>
+  <EntityType Name="TEstudiante">
+    <Key>
+      <PropertyRef Name="Id_Estudiante" />
+    </Key>
+    <Property Name="Id_Estudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Edad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ci_Estudiante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TInscripciones" Relationship="Self.FK_TInscripciones_TEstudiante" FromRole="TEstudiante" ToRole="TInscripciones" />
+    <Property Name="Monto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TInscripciones">
+    <Key>
+      <PropertyRef Name="Id_Inscripciones" />
+    </Key>
+    <Property Name="Id_Inscripciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Monto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="3" />
+    <Property Name="Id_Estudiante" Type="Int32" />
+    <Property Name="Id_Usuario" Type="Int32" />
+    <Property Name="Id_Curso" Type="Int32" />
+    <NavigationProperty Name="TCurso" Relationship="Self.FK_TInscripciones_TCurso" FromRole="TInscripciones" ToRole="TCurso" />
+    <NavigationProperty Name="TEstudiante" Relationship="Self.FK_TInscripciones_TEstudiante" FromRole="TInscripciones" ToRole="TEstudiante" />
+    <NavigationProperty Name="TUsuario" Relationship="Self.FK_TInscripciones_TUsuario" FromRole="TInscripciones" ToRole="TUsuario" />
+  </EntityType>
+  <EntityType Name="TUsuario">
+    <Key>
+      <PropertyRef Name="Id_Usuario" />
+    </Key>
+    <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TInscripciones" Relationship="Self.FK_TInscripciones_TUsuario" FromRole="TUsuario" ToRole="TInscripciones" />
+    <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_TCursos_TDocente">
+    <End Role="TDocente" Type="Self.TDocente" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TCurso" Type="Self.TCurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TDocente">
+        <PropertyRef Name="Id_Docente" />
+      </Principal>
+      <Dependent Role="TCurso">
+        <PropertyRef Name="Id_Docente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TInscripciones_TCurso">
+    <End Role="TCurso" Type="Self.TCurso" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TInscripciones" Type="Self.TInscripciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TCurso">
+        <PropertyRef Name="Id_Curso" />
+      </Principal>
+      <Dependent Role="TInscripciones">
+        <PropertyRef Name="Id_Curso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TInscripciones_TEstudiante">
+    <End Role="TEstudiante" Type="Self.TEstudiante" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TInscripciones" Type="Self.TInscripciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEstudiante">
+        <PropertyRef Name="Id_Estudiante" />
+      </Principal>
+      <Dependent Role="TInscripciones">
+        <PropertyRef Name="Id_Estudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TInscripciones_TUsuario">
+    <End Role="TUsuario" Type="Self.TUsuario" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TInscripciones" Type="Self.TInscripciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TUsuario">
+        <PropertyRef Name="Id_Usuario" />
+      </Principal>
+      <Dependent Role="TInscripciones">
+        <PropertyRef Name="Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InscripcionesBoliviaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TCurso" EntityType="Self.TCurso" />
+    <EntitySet Name="TDocente" EntityType="Self.TDocente" />
+    <EntitySet Name="TEstudiante" EntityType="Self.TEstudiante" />
+    <EntitySet Name="TInscripciones" EntityType="Self.TInscripciones" />
+    <EntitySet Name="TUsuario" EntityType="Self.TUsuario" />
+    <AssociationSet Name="FK_TCursos_TDocente" Association="Self.FK_TCursos_TDocente">
+      <End Role="TDocente" EntitySet="TDocente" />
+      <End Role="TCurso" EntitySet="TCurso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TInscripciones_TCurso" Association="Self.FK_TInscripciones_TCurso">
+      <End Role="TCurso" EntitySet="TCurso" />
+      <End Role="TInscripciones" EntitySet="TInscripciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TInscripciones_TEstudiante" Association="Self.FK_TInscripciones_TEstudiante">
+      <End Role="TEstudiante" EntitySet="TEstudiante" />
+      <End Role="TInscripciones" EntitySet="TInscripciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TInscripciones_TUsuario" Association="Self.FK_TInscripciones_TUsuario">
+      <End Role="TUsuario" EntitySet="TUsuario" />
+      <End Role="TInscripciones" EntitySet="TInscripciones" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="InscripcionesBoliviaModel.sysdiagrams" />
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

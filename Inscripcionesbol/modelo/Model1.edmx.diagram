@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e553431577842f097216e8c1bd82509" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.TCurso" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.TDocente" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.TEstudiante" Width="1.5" PointX="9.375" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.TInscripciones" Width="1.5" PointX="6.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.TUsuario" Width="1.5" PointX="6.125" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="InscripcionesBoliviaModel.FK_TCursos_TDocente" ManuallyRouted="false" />
+        <AssociationConnector Association="InscripcionesBoliviaModel.FK_TInscripciones_TCurso" ManuallyRouted="false" />
+        <AssociationConnector Association="InscripcionesBoliviaModel.FK_TInscripciones_TEstudiante" ManuallyRouted="false" />
+        <AssociationConnector Association="InscripcionesBoliviaModel.FK_TInscripciones_TUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InscripcionesBoliviaModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
